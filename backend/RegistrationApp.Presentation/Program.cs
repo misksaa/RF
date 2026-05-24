@@ -57,7 +57,7 @@ try
         {
             Version = "v1",
             Title = "User Registration API",
-            Description = "A clean-architecture REST API with CQRS, outbox pattern, and structured logging.",
+            Description = "Demo User Registration API",
             Contact = new OpenApiContact
             {
                 Name = "Developer Team",

@@ -1,0 +1,34 @@
+# === .NET Core ignores ===
+backend/**/bin/
+backend/**/obj/
+backend/**/logs/
+backend/**/.vs/
+backend/**/.vscode/
+backend/**/App_Data/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# User Secrets & Local Settings
+backend/**/appsettings.local.json
+backend/**/appsettings.Development.json.user
+
+# === Node / React ignores ===
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.vite/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/lerna-debug.log*
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# === OS & System ignores ===
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/

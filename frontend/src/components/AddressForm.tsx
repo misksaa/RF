@@ -1,6 +1,6 @@
 import React from 'react';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { LookupDto, RegistrationDto } from '../types';
+import type { LookupDto, RegistrationDto } from '../types';
 import TextInput from './TextInput';
 import LookupSelect from './LookupSelect';
 import { Trash2, ShieldCheck, MapPin } from 'lucide-react';

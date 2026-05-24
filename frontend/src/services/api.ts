@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LookupDto, RegistrationDto } from '../types';
+import type { LookupDto, RegistrationDto } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5187';
 

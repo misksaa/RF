@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\RegistrationApp.Presentation.props" />
-</Project>
