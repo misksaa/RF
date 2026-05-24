@@ -1,5 +1,5 @@
 import React from 'react';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import type { UseFormRegister, FieldErrors } from 'react-hook-form';
 import type { LookupDto, RegistrationDto } from '../types';
 import TextInput from './TextInput';
 import LookupSelect from './LookupSelect';

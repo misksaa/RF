@@ -1,5 +1,5 @@
 import React from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import type { UseFormRegisterReturn } from 'react-hook-form';
 import ValidationMessage from './ValidationMessage';
 
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {

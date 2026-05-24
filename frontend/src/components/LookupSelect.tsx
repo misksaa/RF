@@ -1,6 +1,6 @@
 import React from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { LookupDto } from '../types';
+import type { UseFormRegisterReturn } from 'react-hook-form';
+import type { LookupDto } from '../types';
 import ValidationMessage from './ValidationMessage';
 
 interface LookupSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
