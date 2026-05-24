@@ -1,0 +1,7 @@
+{
+  "RegistrationApp.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\table\\RF\\backend\\RegistrationApp.Application",
+  "RegistrationApp.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\table\\RF\\backend\\RegistrationApp.Domain",
+  "RegistrationApp.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\table\\RF\\backend\\RegistrationApp.Infrastructure",
+  "RegistrationApp.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\table\\RF\\backend\\RegistrationApp.Persistence",
+  "RegistrationApp.Presentation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\table\\RF\\backend\\RegistrationApp.Presentation"
+}

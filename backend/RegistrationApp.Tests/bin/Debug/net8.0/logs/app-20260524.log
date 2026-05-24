@@ -1,0 +1,241 @@
+2026-05-24 00:47:48.410 +03:00 [INF]  Starting the ASP.NET Core Web API...
+2026-05-24 00:47:52.681 +03:00 [INF]  Applying EF Core Database migrations...
+2026-05-24 00:47:52.864 +03:00 [ERR]  Failed executing DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Governorates" (
+    "Id" int NOT NULL CONSTRAINT "PK_Governorates" PRIMARY KEY,
+    "NameAr" nvarchar(100) NOT NULL,
+    "NameEn" nvarchar(100) NOT NULL,
+    "IsActive" bit NOT NULL DEFAULT 1
+);
+2026-05-24 00:47:52.870 +03:00 [ERR]  An error occurred while migrating the database.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'table "Governorates" already exists'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at Program.<Main>$(String[] args) in C:\table\RF\backend\RegistrationApp.Presentation\Program.cs:line 107
+2026-05-24 00:47:53.160 +03:00 [INF]  Configured endpoint RegistrationCreatedIntegrationEvent, Consumer: RegistrationApp.Infrastructure.Consumers.RegistrationCreatedIntegrationEventConsumer
+2026-05-24 00:47:53.331 +03:00 [INF]  Outbox Background Processor is starting...
+2026-05-24 00:47:54.013 +03:00 [ERR]  An unhandled exception occurred: Validation failed: 
+ -- Addresses[0]: City must belong to the selected Governorate. Severity: Error
+FluentValidation.ValidationException: Validation failed: 
+ -- Addresses[0]: City must belong to the selected Governorate. Severity: Error
+   at RegistrationApp.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Application\Common\Behaviors\ValidationBehavior.cs:line 35
+   at RegistrationApp.Presentation.Controllers.RegistrationsController.Create(CreateRegistrationCommand command, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Presentation\Controllers\RegistrationsController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at RegistrationApp.Presentation.Middlewares.RequestDurationLoggingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\RequestDurationLoggingMiddleware.cs:line 23
+   at RegistrationApp.Presentation.Middlewares.CorrelationIdMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\CorrelationIdMiddleware.cs:line 30
+   at RegistrationApp.Presentation.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\ExceptionHandlingMiddleware.cs:line 29
+2026-05-24 00:47:54.380 +03:00 [INF] bb5f4349-4f16-47ca-8e3e-485ff926c900 HTTP POST /api/registrations responded 201 in 275 ms
+2026-05-24 00:47:54.541 +03:00 [INF] 0769bbe3-d971-4076-883d-1a40190e5a4d HTTP GET /api/registrations/54ec9801-93d9-4f37-aa37-a4e83960d701 responded 200 in 151 ms
+2026-05-24 00:47:54.549 +03:00 [ERR]  An unhandled exception occurred: Validation failed: 
+ -- FirstName: First name must only contain Arabic or English letters, spaces, hyphens, and apostrophes. Severity: Error
+FluentValidation.ValidationException: Validation failed: 
+ -- FirstName: First name must only contain Arabic or English letters, spaces, hyphens, and apostrophes. Severity: Error
+   at RegistrationApp.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Application\Common\Behaviors\ValidationBehavior.cs:line 35
+   at RegistrationApp.Presentation.Controllers.RegistrationsController.Create(CreateRegistrationCommand command, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Presentation\Controllers\RegistrationsController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at RegistrationApp.Presentation.Middlewares.RequestDurationLoggingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\RequestDurationLoggingMiddleware.cs:line 23
+   at RegistrationApp.Presentation.Middlewares.CorrelationIdMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\CorrelationIdMiddleware.cs:line 30
+   at RegistrationApp.Presentation.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\ExceptionHandlingMiddleware.cs:line 29
+2026-05-24 00:47:54.571 +03:00 [INF] 8627a69a-4916-4735-9a4a-62ff38d29239 HTTP GET /api/lookups/cities responded 200 in 19 ms
+2026-05-24 00:47:54.584 +03:00 [INF] f1e9b4c3-65c5-403c-82bf-3bb86f5815bf HTTP GET /api/lookups/governorates responded 200 in 9 ms
+2026-05-24 00:47:54.592 +03:00 [WRN]  Failed to stop bus: "rabbitmq://localhost/RAMZ_testhost_bus_6btyyynqr8rbmhbobdxm1f8tbc?temporary=true" (Not Started)
+2026-05-24 00:48:14.795 +03:00 [INF]  Starting the ASP.NET Core Web API...
+2026-05-24 00:48:16.180 +03:00 [INF]  Applying EF Core Database migrations...
+2026-05-24 00:48:16.327 +03:00 [ERR]  Failed executing DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Governorates" (
+    "Id" int NOT NULL CONSTRAINT "PK_Governorates" PRIMARY KEY,
+    "NameAr" nvarchar(100) NOT NULL,
+    "NameEn" nvarchar(100) NOT NULL,
+    "IsActive" bit NOT NULL DEFAULT 1
+);
+2026-05-24 00:48:16.338 +03:00 [ERR]  An error occurred while migrating the database.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'table "Governorates" already exists'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at Program.<Main>$(String[] args) in C:\table\RF\backend\RegistrationApp.Presentation\Program.cs:line 107
+2026-05-24 00:48:16.686 +03:00 [INF]  Configured endpoint RegistrationCreatedIntegrationEvent, Consumer: RegistrationApp.Infrastructure.Consumers.RegistrationCreatedIntegrationEventConsumer
+2026-05-24 00:48:16.838 +03:00 [INF]  Outbox Background Processor is starting...
+2026-05-24 00:48:17.646 +03:00 [ERR]  An unhandled exception occurred: Validation failed: 
+ -- Addresses[0]: City must belong to the selected Governorate. Severity: Error
+FluentValidation.ValidationException: Validation failed: 
+ -- Addresses[0]: City must belong to the selected Governorate. Severity: Error
+   at RegistrationApp.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Application\Common\Behaviors\ValidationBehavior.cs:line 35
+   at RegistrationApp.Presentation.Controllers.RegistrationsController.Create(CreateRegistrationCommand command, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Presentation\Controllers\RegistrationsController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at RegistrationApp.Presentation.Middlewares.RequestDurationLoggingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\RequestDurationLoggingMiddleware.cs:line 23
+   at RegistrationApp.Presentation.Middlewares.CorrelationIdMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\CorrelationIdMiddleware.cs:line 30
+   at RegistrationApp.Presentation.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\ExceptionHandlingMiddleware.cs:line 29
+2026-05-24 00:48:18.171 +03:00 [INF] 009ae09a-b32b-4d58-8789-0f3f73848893 HTTP POST /api/registrations responded 201 in 392 ms
+2026-05-24 00:48:18.472 +03:00 [INF] 525ef298-ef5a-405f-bbd7-8053a3223202 HTTP GET /api/registrations/da2e05b7-e693-4d3f-87ef-55125bb13f4a responded 200 in 287 ms
+2026-05-24 00:48:18.491 +03:00 [ERR]  An unhandled exception occurred: Validation failed: 
+ -- FirstName: First name must only contain Arabic or English letters, spaces, hyphens, and apostrophes. Severity: Error
+FluentValidation.ValidationException: Validation failed: 
+ -- FirstName: First name must only contain Arabic or English letters, spaces, hyphens, and apostrophes. Severity: Error
+   at RegistrationApp.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Application\Common\Behaviors\ValidationBehavior.cs:line 35
+   at RegistrationApp.Presentation.Controllers.RegistrationsController.Create(CreateRegistrationCommand command, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Presentation\Controllers\RegistrationsController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at RegistrationApp.Presentation.Middlewares.RequestDurationLoggingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\RequestDurationLoggingMiddleware.cs:line 23
+   at RegistrationApp.Presentation.Middlewares.CorrelationIdMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\CorrelationIdMiddleware.cs:line 30
+   at RegistrationApp.Presentation.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\ExceptionHandlingMiddleware.cs:line 29
+2026-05-24 00:48:18.538 +03:00 [INF] 81ffc0ff-7552-4870-8643-12a0f87209ac HTTP GET /api/lookups/cities responded 200 in 37 ms
+2026-05-24 00:48:18.564 +03:00 [INF] cb802f8d-c17a-47d0-b046-8a1be177d781 HTTP GET /api/lookups/governorates responded 200 in 19 ms
+2026-05-24 00:48:18.577 +03:00 [WRN]  Failed to stop bus: "rabbitmq://localhost/RAMZ_testhost_bus_cofoyynqr8rbkoxhbdxm1f89b1?temporary=true" (Not Started)
+2026-05-24 09:59:42.503 +03:00 [INF]  Starting the ASP.NET Core Web API...
+2026-05-24 09:59:44.669 +03:00 [INF]  Applying EF Core Database migrations...
+2026-05-24 09:59:44.762 +03:00 [ERR]  Failed executing DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Governorates" (
+    "Id" int NOT NULL CONSTRAINT "PK_Governorates" PRIMARY KEY,
+    "NameAr" nvarchar(100) NOT NULL,
+    "NameEn" nvarchar(100) NOT NULL,
+    "IsActive" bit NOT NULL DEFAULT 1
+);
+2026-05-24 09:59:44.767 +03:00 [ERR]  An error occurred while migrating the database.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'table "Governorates" already exists'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at Program.<Main>$(String[] args) in C:\table\RF\backend\RegistrationApp.Presentation\Program.cs:line 107
+2026-05-24 09:59:44.856 +03:00 [INF]  Configured endpoint RegistrationCreatedIntegrationEvent, Consumer: RegistrationApp.Infrastructure.Consumers.RegistrationCreatedIntegrationEventConsumer
+2026-05-24 09:59:45.003 +03:00 [INF]  Bus started: "loopback://localhost/"
+2026-05-24 09:59:45.004 +03:00 [INF]  Outbox Background Processor is starting...
+2026-05-24 09:59:45.461 +03:00 [ERR]  An unhandled exception occurred: Validation failed: 
+ -- Addresses[0]: City must belong to the selected Governorate. Severity: Error
+FluentValidation.ValidationException: Validation failed: 
+ -- Addresses[0]: City must belong to the selected Governorate. Severity: Error
+   at RegistrationApp.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Application\Common\Behaviors\ValidationBehavior.cs:line 35
+   at RegistrationApp.Presentation.Controllers.RegistrationsController.Create(CreateRegistrationCommand command, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Presentation\Controllers\RegistrationsController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at RegistrationApp.Presentation.Middlewares.RequestDurationLoggingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\RequestDurationLoggingMiddleware.cs:line 23
+   at RegistrationApp.Presentation.Middlewares.CorrelationIdMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\CorrelationIdMiddleware.cs:line 30
+   at RegistrationApp.Presentation.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\ExceptionHandlingMiddleware.cs:line 29
+2026-05-24 09:59:45.742 +03:00 [INF] fb425bc3-ebda-43f7-a656-aa396076f0b5 HTTP POST /api/registrations responded 201 in 224 ms
+2026-05-24 09:59:45.887 +03:00 [INF] b7a02468-c84c-4c26-8b40-61f67cad08c9 HTTP GET /api/registrations/ce53c003-1374-439c-8d70-14f3972f2c83 responded 200 in 136 ms
+2026-05-24 09:59:45.895 +03:00 [ERR]  An unhandled exception occurred: Validation failed: 
+ -- FirstName: First name must only contain Arabic or English letters, spaces, hyphens, and apostrophes. Severity: Error
+FluentValidation.ValidationException: Validation failed: 
+ -- FirstName: First name must only contain Arabic or English letters, spaces, hyphens, and apostrophes. Severity: Error
+   at RegistrationApp.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Application\Common\Behaviors\ValidationBehavior.cs:line 35
+   at RegistrationApp.Presentation.Controllers.RegistrationsController.Create(CreateRegistrationCommand command, CancellationToken cancellationToken) in C:\table\RF\backend\RegistrationApp.Presentation\Controllers\RegistrationsController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at RegistrationApp.Presentation.Middlewares.RequestDurationLoggingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\RequestDurationLoggingMiddleware.cs:line 23
+   at RegistrationApp.Presentation.Middlewares.CorrelationIdMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\CorrelationIdMiddleware.cs:line 30
+   at RegistrationApp.Presentation.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\table\RF\backend\RegistrationApp.Presentation\Middlewares\ExceptionHandlingMiddleware.cs:line 29
+2026-05-24 09:59:45.917 +03:00 [INF] 6c170ec5-8cb0-4f59-8692-c7db891bddcb HTTP GET /api/lookups/cities responded 200 in 18 ms
+2026-05-24 09:59:45.932 +03:00 [INF] 518c5b45-42cb-4716-8320-45d8934c8a35 HTTP GET /api/lookups/governorates responded 200 in 10 ms
+2026-05-24 09:59:45.960 +03:00 [INF]  Bus stopped: "loopback://localhost/"
