@@ -245,6 +245,11 @@ body {
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
+.input-field-select option {
+  background-color: #0d121e;
+  color: #f3f4f6;
+}
+
 .input-field-error {
   border-color: rgba(244, 63, 94, 0.45) !important;
 }

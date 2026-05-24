@@ -15,12 +15,12 @@ const nameRegex = /^[a-zA-Z\u0621-\u064A\s'\-]+$/;
 const mobileRegex = /^\+[1-9]\d{6,14}$/;
 
 export const addressSchema = z.object({
-  governorateId: z.number({ invalid_type_error: "Governorate is required." }).positive("Governorate is required."),
-  cityId: z.number({ invalid_type_error: "City is required." }).positive("City is required."),
+  governorateId: z.number().positive("Governorate is required."),
+  cityId: z.number().positive("City is required."),
   street: z.string().trim().min(1, "Street is required.").max(200, "Street must not exceed 200 characters."),
   buildingNumber: z.string().trim().min(1, "Building number is required.").max(20, "Building number must not exceed 20 characters."),
   flatNumber: z.string().trim().min(1, "Flat number is required.").max(20, "Flat number must not exceed 20 characters."),
-  isPrimary: z.boolean().default(false),
+  isPrimary: z.boolean(),
 });
 
 export const registrationSchema = z.object({
@@ -57,7 +57,6 @@ export const App: React.FC = () => {
   const [governorates, setGovernorates] = useState<LookupDto[]>([]);
   const [citiesByAddressIndex, setCitiesByAddressIndex] = useState<Record<number, LookupDto[]>>({});
   const [loadingCitiesByAddressIndex, setLoadingCitiesByAddressIndex] = useState<Record<number, boolean>>({});
-  const [loadingGovernorates, setLoadingGovernorates] = useState(false);
   
   // Submit state
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -73,7 +72,7 @@ export const App: React.FC = () => {
     watch,
     setError,
     reset,
-    formState: { errors, isValid }
+    formState: { errors }
   } = useForm<RegistrationFormValues>({
     resolver: zodResolver(registrationSchema),
     mode: 'onTouched',
@@ -108,15 +107,12 @@ export const App: React.FC = () => {
   // Load active governorates lookup on mount
   useEffect(() => {
     const fetchGovernorates = async () => {
-      setLoadingGovernorates(true);
       try {
         const data = await apiService.getGovernorates();
         setGovernorates(data);
       } catch (err) {
         console.error("Failed to load Governorates lookup:", err);
         setGlobalErrorMessage("Failed to load Governorates lookup from the server. Please check connection.");
-      } finally {
-        setLoadingGovernorates(false);
       }
     };
     fetchGovernorates();
