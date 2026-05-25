@@ -5,13 +5,13 @@ namespace RegistrationApp.Domain.Entities;
 
 public class Address : Entity
 {
-    public Guid RegistrationId { get; set; }
-    public int GovernorateId { get; set; }
-    public int CityId { get; set; }
-    public string Street { get; set; } = string.Empty;
-    public string BuildingNumber { get; set; } = string.Empty;
-    public string FlatNumber { get; set; } = string.Empty;
-    public bool IsPrimary { get; set; }
+    public Guid RegistrationId { get; private set; }
+    public int GovernorateId { get; private set; }
+    public int CityId { get; private set; }
+    public string Street { get; private set; } = string.Empty;
+    public string BuildingNumber { get; private set; } = string.Empty;
+    public string FlatNumber { get; private set; } = string.Empty;
+    public bool IsPrimary { get; internal set; }
     
     // Parameterless constructor for EF Core
     public Address() { }
