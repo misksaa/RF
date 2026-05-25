@@ -149,4 +149,63 @@ public class RegistrationApiTests : IClassFixture<CustomWebApplicationFactory<Pr
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
+
+    [Fact]
+    public async Task GetHealth_ShouldReturnHealthy()
+    {
+        var response = await _client.GetAsync("/health");
+
+        response.EnsureSuccessStatusCode();
+        var content = await response.Content.ReadAsStringAsync();
+        Assert.Contains("Healthy", content);
+        Assert.Contains("sqlserver", content);
+    }
+
+    [Fact]
+    public async Task GetRegistrations_ShouldReturnPaginatedAndFilteredResults()
+    {
+        // 1. Create a unique registration to search for (using letters only to pass Name whitelisting validation)
+        var randomLetters = new string(Guid.NewGuid().ToString("N").Where(char.IsLetter).ToArray()).Substring(0, 10);
+        var uniqueSearchTerm = $"UniqueName{randomLetters}";
+        var email = $"searchtest.{Guid.NewGuid()}@example.com";
+        var command = new CreateRegistrationCommand
+        {
+            FirstName = uniqueSearchTerm,
+            MiddleName = "Ahmed",
+            LastName = "Ali",
+            BirthDate = DateTime.UtcNow.AddYears(-25),
+            MobileNumber = $"+2010{new Random().Next(10000000, 99999999)}",
+            Email = email,
+            Addresses = new List<CreateAddressCommandDto>
+            {
+                new CreateAddressCommandDto
+                {
+                    GovernorateId = 1,
+                    CityId = 1,
+                    Street = "Tahrir St",
+                    BuildingNumber = "12",
+                    FlatNumber = "3A",
+                    IsPrimary = true
+                }
+            }
+        };
+
+        var postResponse = await _client.PostAsJsonAsync("/api/registrations", command);
+        Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
+
+        // 2. Fetch via search pagination
+        var response = await _client.GetAsync($"/api/registrations?searchTerm={uniqueSearchTerm}&pageNumber=1&pageSize=5");
+
+        response.EnsureSuccessStatusCode();
+        
+        var jsonResponse = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        
+        Assert.True(jsonResponse.TryGetProperty("items", out var itemsProp));
+        Assert.True(jsonResponse.TryGetProperty("totalCount", out var totalCountProp));
+        
+        var items = itemsProp.EnumerateArray().ToList();
+        Assert.Single(items);
+        Assert.Equal(uniqueSearchTerm, items.First().GetProperty("firstName").GetString());
+        Assert.Equal(1, totalCountProp.GetInt32());
+    }
 }

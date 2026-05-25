@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RegistrationApp.Application.Registrations.Commands.CreateRegistration;
 using RegistrationApp.Application.Registrations.Queries.GetRegistration;
+using RegistrationApp.Application.Registrations.Queries.GetRegistrationsWithPagination;
+using RegistrationApp.Application.Common.Models;
 
 namespace RegistrationApp.Presentation.Controllers;
 
@@ -53,6 +55,28 @@ public class RegistrationsController : ControllerBase
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var query = new GetRegistrationQuery(id);
+        var result = await _mediator.Send(query, cancellationToken);
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Retrieves a paginated list of registrations, optionally filtered by a search term.
+    /// </summary>
+    /// <param name="searchTerm">Search filter for first name, last name, email, or mobile number.</param>
+    /// <param name="pageNumber">Page index (default is 1).</param>
+    /// <param name="pageSize">Page size limit (default is 10).</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>A paginated list container of registrations.</returns>
+    /// <response code="200">Returns the paginated results container.</response>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedList<RegistrationDto>))]
+    public async Task<IActionResult> GetWithPagination(
+        [FromQuery] string? searchTerm,
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 10,
+        CancellationToken cancellationToken = default)
+    {
+        var query = new GetRegistrationsWithPaginationQuery(searchTerm, pageNumber, pageSize);
         var result = await _mediator.Send(query, cancellationToken);
         return Ok(result);
     }
