@@ -10,6 +10,8 @@ using RegistrationApp.Infrastructure;
 using RegistrationApp.Persistence;
 using RegistrationApp.Presentation.Middlewares;
 using Serilog;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using System.Text.Json;
 
 try
 {
@@ -36,6 +38,10 @@ try
     builder.Services.AddInfrastructureServices(builder.Configuration);
 
     builder.Services.AddControllers();
+
+    // Register Health Checks for EF Core DbContext
+    builder.Services.AddHealthChecks()
+        .AddDbContextCheck<RegistrationDbContext>("sqlserver");
     
     // 3. Configure CORS Policy for React Frontend
     builder.Services.AddCors(options =>
@@ -94,6 +100,35 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+
+    // Map Health Checks Endpoint with structured JSON response
+    app.MapHealthChecks("/health", new HealthCheckOptions
+    {
+        ResponseWriter = async (context, report) =>
+        {
+            context.Response.ContentType = "application/json";
+
+            var response = new
+            {
+                status = report.Status.ToString(),
+                results = report.Entries.ToDictionary(
+                    entry => entry.Key,
+                    entry => new
+                    {
+                        status = entry.Value.Status.ToString(),
+                        description = entry.Value.Description,
+                        duration = entry.Value.Duration
+                    })
+            };
+
+            var jsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response, jsonOptions));
+        }
+    });
 
     // 6. Auto-migrate Database & Seed Lookups on startup!
     using (var scope = app.Services.CreateScope())
